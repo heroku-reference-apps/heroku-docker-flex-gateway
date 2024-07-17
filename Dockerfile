@@ -1,4 +1,4 @@
-FROM mulesoft/flex-gateway:1.7.1
+FROM --platform=linux/amd64 mulesoft/flex-gateway:1.7.1
 
 ENV FLEX_DYNAMIC_PORT_ENABLE=true \
   FLEX_DYNAMIC_PORT_ENVAR=PORT \
@@ -8,5 +8,3 @@ ENV FLEX_DYNAMIC_PORT_ENABLE=true \
   FLEX_METRIC_ADDR=tcp://127.0.0.1:2000 \
   FLEX_SERVICE_ENVOY_DRAIN_TIME=30 \
   FLEX_SERVICE_ENVOY_CONCURRENCY=1
-
-COPY config/ /usr/local/share/mulesoft/flex-gateway/conf.d

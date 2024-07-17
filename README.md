@@ -15,16 +15,10 @@ Deploy the official [MuleSoft Anypoint Flex Gateway Docker image](https://hub.do
 
 ## Manual Deployment
 
-Make sure you have installed the `@heroku-cli/plugin-manifest` plugin by running:
+Create an application on a Private Space with the Heroku CLI using the `--space` flag:
 
 ``` sh
-heroku plugins:install @heroku-cli/plugin-manifest
-```
-
-Create an application on a Private Space with the Heroku CLI using the `--manifest` and `--space` flags:
-
-``` sh
-heroku create <gw-app-name> --manifest --space <private space>
+heroku create <gw-app-name> --space <private space>
 ```
 
 Set the `registration.yaml` configuration contents in the `FLEX_CONFIG` environment variable:
@@ -36,5 +30,7 @@ heroku config:set FLEX_CONFIG="$(cat registration.yaml)" -a <gw-app-name>
 Deploy the Flex Gateway by running:
 
 ``` sh
-git push heroku main
+heroku container:login
+heroku container:push web
+heroku container:release web
 ```
