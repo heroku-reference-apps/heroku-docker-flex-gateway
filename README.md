@@ -43,7 +43,6 @@ heroku config:set FLEX_CONNECTION_IDLE_TIMEOUT_SECONDS=60 -a <gateway-app-name>
 heroku config:set FLEX_STREAM_IDLE_TIMEOUT_SECONDS=300 -a <gateway-app-name>
 heroku config:set FLEX_METRIC_ADDR=tcp://127.0.0.1:2000 -a <gateway-app-name>
 heroku config:set FLEX_SERVICE_ENVOY_DRAIN_TIME=30 -a <gateway-app-name>
-heroku config:set FLEX_SERVICE_ENVOY_CONCURRENCY=1 -a <gateway-app-name>
 ```
 
 Deploy the Flex Gateway to Heroku by running:
@@ -59,11 +58,11 @@ After deploying the Flex Gateway to Heroku you'll need to add a new API to it un
 
 > "Error R10 (Boot timeout) -> Web process failed to bind to $PORT within 60 seconds of launch"
 
-## Recommended Envoy Concurrency by Dyno type
+## Recommended Concurrency by Dyno type
 
 Depending on the dyno type, to achieve better performance there is our recommended concurrency values:
 
-| Dyno type | Concurrency value |
+| Dyno type | FLEX_SERVICE_ENVOY_CONCURRENCY |
 |---|---|
 | Basic/Standard-{1X,2X} | 1 |
 | Performance-{S,M} | 2 |
@@ -77,3 +76,9 @@ Depending on the dyno type, to achieve better performance there is our recommend
 | Performance-2XL | 16 |
 | Private-2XL | 16 |
 | Shield-2XL | 16 |
+
+You can set it by running:
+
+``` sh
+heroku config:set FLEX_SERVICE_ENVOY_CONCURRENCY=<concurrency-value> -a <gateway-app-name>
+```
